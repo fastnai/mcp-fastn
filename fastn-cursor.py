@@ -167,7 +167,3 @@ def initialize_tools():
 if __name__ == "__main__":
     initialize_tools()
     mcp.run(transport='stdio')
-
-
-# We need find a way to register tools on run time when ever prompt will comes 
-# /Users/umarfarooq/.local/bin/uv --directory /Users/umarfarooq/Downloads/fastn/fastn-server run fastn.py --api_key 78572fdb-f61a-43ad-b017-ac02ebffbecc --space_id a964a451-7538-4e34-ac6c-693a2f087fe4
