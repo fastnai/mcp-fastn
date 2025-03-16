@@ -38,7 +38,7 @@ async def fetch_tools() -> list:
     data = {
         "input": {
             "useCase": args.usecase,
-            "spaceId" : "b034812a-7d77-4e8e-945e-106656b2676e"
+            "spaceId" : args.space_id
         }
     }
     async with httpx.AsyncClient(timeout=30.0) as client:
