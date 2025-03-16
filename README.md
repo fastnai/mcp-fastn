@@ -59,21 +59,12 @@ The most likely cause of this is that there is no directory that matches the nam
 packages = ["."]
 ```
 
-2. Create a simple `fastn.py` file in the root directory:
-```python
-def main():
-    print("Fastn server module")
-
-if __name__ == "__main__":
-    main()
-```
-
-3. Then install dependencies:
+2. Then install dependencies:
 ```bash
 uv pip install "httpx>=0.28.1" "mcp[cli]>=1.2.0"
 ```
 
-4. Run the server:
+3. Run the server:
 ```bash
 uv run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 ```
@@ -83,7 +74,7 @@ uv run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 You'll need the following credentials to run the server:
 
 - API Key from Fastn
-- Space ID from your Fastn environment
+- Space ID from your Fastn your workspace
 
 Optional: You can also specify a use case:
 ```bash
