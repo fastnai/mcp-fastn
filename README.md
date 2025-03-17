@@ -62,9 +62,9 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex" && uv venv && .venv\S
 uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID 
 ```
 
-## Step 3: Integration with Claude
+## Step 3: Integration with Claude On Mac OS
 
-1. Open the Claude configuration get file correct path :
+1. Open the Claude configuration :
 ```bash
 Code .~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
