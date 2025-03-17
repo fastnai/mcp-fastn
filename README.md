@@ -44,11 +44,18 @@ uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 
 ### Windows
 
+### Windows
+
 ```bash
 # Clone repository and navigate to directory
 git clone <your-repo-url> && cd fastn-server
 
-# Install UV, create virtual environment, and install dependencies
+# Install UV, create a virtual environment, and install dependencies
+# Option 1: Install UV using pip
+python -m pip install uv
+# Make sure to copy the installation path and add it to your Windows environment variables.
+
+# Option 2: Install UV using PowerShell
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex" && uv venv && .venv\Scripts\activate && uv pip install -e .
 
 # Run server (specify platform with --platform flag)
