@@ -36,7 +36,7 @@ async def fetch_tools() -> list:
     """Fetch tool definitions from the getTools API endpoint."""
     data = {
         "input": {
-            "useCase": args.usecase,
+            # "useCase": args.usecase,
             "spaceId" : args.space_id
         }
     }
