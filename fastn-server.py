@@ -22,8 +22,8 @@ args = parser.parse_args()
 mcp = FastMCP("fastn")
 
 # API Endpoints
-GET_TOOLS_URL = "https://live.fastn.ai/api/v1/getTools"
-EXECUTE_TOOL_URL = "https://live.fastn.ai/api/v1/executeTool"
+GET_TOOLS_URL = "https://live.fastn.ai/api/api/mcp/getTools"
+EXECUTE_TOOL_URL = "https://live.fastn.ai/api/api/mcp/executeTool"
 
 # Common headers
 HEADERS = {
