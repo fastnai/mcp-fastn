@@ -64,7 +64,7 @@ uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 
 ## Step 3: Integration with Claude
 
-1. Open the Claude configuration file:
+1. Open the Claude configuration get file correct path :
 ```bash
 Code .~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
