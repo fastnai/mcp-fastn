@@ -4,6 +4,7 @@ import asyncio
 import json
 import logging
 import argparse
+import re
 from mcp.server.fastmcp import FastMCP
 from pydantic import BaseModel, create_model, Field
 
@@ -14,6 +15,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 parser = argparse.ArgumentParser(description="Run MCP server with specified API credentials and use case.")
 parser.add_argument("--api_key", required=True, help="API key for authentication.")
 parser.add_argument("--space_id", required=True, help="Space ID for the target environment.")
+parser.add_argument("--usecase", required=False, help="Description of the use case.")
 args = parser.parse_args()
 
 # Initialize FastMCP server
@@ -36,7 +38,7 @@ async def fetch_tools() -> list:
     """Fetch tool definitions from the getTools API endpoint."""
     data = {
         "input": {
-            # "useCase": args.usecase,
+            "useCase": args.usecase,
             "spaceId" : args.space_id
         }
     }
@@ -72,12 +74,43 @@ async def execute_tool(action_id: str, parameters: Dict[str, Any]) -> Dict[str, 
             logging.error(f"Unexpected execution error: {e}")
             return json.dumps({"error": str(e)})
 
+def validate_tool_name(name: str) -> str:
+    """
+    Validate and sanitize tool name to match pattern '^[a-zA-Z0-9_-]{1,64}$'.
+    Returns sanitized name or raises ValueError if name can't be sanitized.
+    """
+    # Check if name already matches pattern
+    if re.match(r'^[a-zA-Z0-9_-]{1,64}$', name):
+        return name
+    
+    # Try to sanitize name
+    sanitized = re.sub(r'[^a-zA-Z0-9_-]', '_', name)
+    
+    # Truncate if too long
+    if len(sanitized) > 64:
+        sanitized = sanitized[:64]
+    
+    # Ensure it's not empty
+    if not sanitized:
+        sanitized = "tool_" + str(hash(name))[:10]
+    
+    logging.warning(f"Tool name sanitized: '{name}' → '{sanitized}'")
+    return sanitized
+
 def register_tool(tool_def: Dict[str, Any]):
     """Dynamically create and register a tool based on the tool definition."""
     try:
         action_id = tool_def["actionId"]
         function_info = tool_def["function"]
-        function_name = function_info["name"]
+        original_name = function_info["name"]
+        
+        try:
+            # Validate and sanitize the function name
+            function_name = validate_tool_name(original_name)
+        except ValueError as e:
+            logging.error(f"Invalid tool name '{original_name}': {e}. Skipping tool.")
+            return
+            
         parameters_schema = function_info.get("parameters", {})
         description = function_info.get("description", "")
 
