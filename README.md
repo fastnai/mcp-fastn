@@ -2,6 +2,12 @@
 
 The Fastn server is a powerful, scalable platform that enables dynamic tool registration and execution based on API definitions. It seamlessly integrates with services like Claude.ai and Cursor.ai, providing a unified server solution for a wide range of tasks. With its robust architecture, Fastn delivers exceptional performance and flexibility for real-time, API-driven operations.
 
+## Features
+
+- Platform-specific handling for Claude and Cursor
+- **Integrated platform support** - Use services like Slack, Notion, HubSpot, and many more through the Fastn server after completing the simple setup
+- Logging support
+
 ## Step-by-Step Setup Guide
 
 ### Step 1: Fastn Setup
@@ -43,7 +49,7 @@ uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 git clone <your-repo-url> && cd fastn-server
 
 # Install UV, create virtual environment, and install dependencies
-curl -LsSf https://astral.sh/uv/install.sh | sh && uv venv && .venv\Scripts\activate && uv pip install -e .
+powershell -c "irm https://astral.sh/uv/install.ps1 | iex" && uv venv && .venv\Scripts\activate && uv pip install -e .
 
 # Run server (specify platform with --platform flag)
 uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID 
@@ -136,14 +142,6 @@ uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 - `uv.lock` - Dependency lock file
 - `.python-version` - Python version specification
 
-## Features
-
-- Dynamic tool registration from Fastn API
-- Asynchronous tool execution
-- Pydantic model generation for parameter validation
-- Logging support
-- Command-line argument parsing
-- Platform-specific handling for Claude and Cursor
 
 ## Error Handling
 
