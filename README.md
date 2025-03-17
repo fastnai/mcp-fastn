@@ -1,8 +1,6 @@
 # Fastn Server
 
-A simple MCP fastn server implementation that dynamically registers and executes tools based on API definitions. This project includes two server implementations:
-- `fastn-claude.py` - Server implementation for Claude.ai
-- `fastn-cursor.py` - Server implementation for Cursor.ai
+A simple MCP fastn server implementation that dynamically registers and executes tools based on API definitions. This project includes a unified server implementation that works with both Claude.ai and Cursor.ai.
 
 ## Step-by-Step Setup Guide
 
@@ -34,11 +32,8 @@ git clone <your-repo-url> && cd fastn-server
 # Install UV, create virtual environment, and install dependencies in one go
 curl -LsSf https://astral.sh/uv/install.sh | sh && uv venv && source .venv/bin/activate && uv pip install -e .
 
-# Run Claude server
-uv run fastn-claude.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
-
-# OR run Cursor server
-uv run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
+# Run server (specify platform with --platform flag)
+uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID 
 ```
 
 ### Windows
@@ -50,11 +45,8 @@ git clone <your-repo-url> && cd fastn-server
 # Install UV, create virtual environment, and install dependencies
 curl -LsSf https://astral.sh/uv/install.sh | sh && uv venv && .venv\Scripts\activate && uv pip install -e .
 
-# Run Claude server
-uv run fastn-claude.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
-
-# OR run Cursor server
-uv run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
+# Run server (specify platform with --platform flag)
+uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID 
 ```
 
 ## Step 3: Integration with Claude
@@ -74,13 +66,11 @@ open ~/Library/Application\ Support/Claude/claude_desktop_config.json
                 "--directory",
                 "/path/to/your/fastn-server",
                 "run",
-                "fastn-claude.py",
+                "fastn-server.py",
                 "--api_key",
                 "YOUR_API_KEY",
                 "--space_id",
-                "YOUR_WORKSPACE_ID",
-                "--usecase",
-                ""
+                "YOUR_WORKSPACE_ID"
             ]
         }
     }
@@ -96,7 +86,7 @@ open ~/Library/Application\ Support/Claude/claude_desktop_config.json
 5. Select "Command" as the type
 6. Add the following command (replace placeholders with your actual values):
 ```
-/path/to/your/uv --directory /path/to/your/fastn-server run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_WORKSPACE_ID
+/path/to/your/uv --directory /path/to/your/fastn-server run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_WORKSPACE_ID
 ```
 
 ## Troubleshooting
@@ -123,7 +113,7 @@ uv pip install "httpx>=0.28.1" "mcp[cli]>=1.2.0"
 
 3. Run the server:
 ```bash
-uv run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
+uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 ```
 
 ## Configuration
@@ -132,18 +122,16 @@ You'll need the following credentials to run the server:
 
 - API Key from Fastn (obtained in Step 1)
 - Space ID from your Fastn workspace (obtained in Step 1)
+- Platform specification (claude or cursor)
 
 Optional: You can also specify a use case:
 ```bash
-uv run fastn-claude.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID --usecase "YOUR_USE_CASE"
-# OR
-uv run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID --usecase "YOUR_USE_CASE"
+uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 ```
 
 ## Project Structure
 
-- `fastn-claude.py` - Server implementation for Claude.ai
-- `fastn-cursor.py` - Server implementation for Cursor.ai
+- `fastn-server.py` - Unified server implementation for both Claude.ai and Cursor.ai
 - `pyproject.toml` - Project configuration and dependencies
 - `uv.lock` - Dependency lock file
 - `.python-version` - Python version specification
@@ -155,6 +143,7 @@ uv run fastn-cursor.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID --usecase
 - Pydantic model generation for parameter validation
 - Logging support
 - Command-line argument parsing
+- Platform-specific handling for Claude and Cursor
 
 ## Error Handling
 
@@ -163,6 +152,7 @@ The server includes comprehensive error handling for:
 - Tool registration
 - Parameter validation
 - Tool execution
+- Platform-specific requirements
 
 ## Logging
 
