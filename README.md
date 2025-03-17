@@ -1,6 +1,6 @@
 # Fastn Server
 
-A simple MCP fastn server implementation that dynamically registers and executes tools based on API definitions. This project includes a unified server implementation that works with both Claude.ai and Cursor.ai.
+The Fastn server is a powerful, scalable platform that enables dynamic tool registration and execution based on API definitions. It seamlessly integrates with services like Claude.ai and Cursor.ai, providing a unified server solution for a wide range of tasks. With its robust architecture, Fastn delivers exceptional performance and flexibility for real-time, API-driven operations.
 
 ## Step-by-Step Setup Guide
 
