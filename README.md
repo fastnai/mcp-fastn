@@ -66,7 +66,7 @@ uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 
 1. Open the Claude configuration file:
 ```bash
-open ~/Library/Application\ Support/Claude/claude_desktop_config.json
+Code .~/Library/Application\ Support/Claude/claude_desktop_config.json
 ```
 
 2. Add the following configuration (replace placeholders with your actual values):
