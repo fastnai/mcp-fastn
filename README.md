@@ -4,7 +4,6 @@ The Fastn server is a powerful, scalable platform that enables dynamic tool regi
 
 ## Features
 
-- **Platform-specific handling** for Claude and Cursor
 - **Integrated platform support** - Use services like Slack, Notion, HubSpot, and many more through the Fastn server after completing the simple setup
 - **Logging support** - Comprehensive logging system
 - **Error handling** - Robust error management for various scenarios
@@ -101,42 +100,6 @@ code ~/Library/Application\ Support/Claude/claude_desktop_config.json
 /path/to/your/uv --directory /path/to/your/fastn-server run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_WORKSPACE_ID
 ```
 
-## Usage
-
-You'll need the following credentials to run the server:
-
-- API Key from Fastn (obtained in Step 1)
-- Space ID from your Fastn workspace (obtained in Step 1)
-- Platform specification (claude or cursor)
-
-Optional: You can also specify a use case:
-```bash
-uv run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
-```
-
-## Components
-
-### Project Structure
-
-- `fastn-server.py` - Unified server implementation for both Claude.ai and Cursor.ai
-- `pyproject.toml` - Project configuration and dependencies
-- `uv.lock` - Dependency lock file
-- `.python-version` - Python version specification
-
-### Dependencies
-
-- httpx: HTTP client
-- mcp[cli]: MCP server implementation
-- pydantic: Data validation
-
-## Error Handling
-
-The server includes comprehensive error handling for:
-- HTTP requests
-- Tool registration
-- Parameter validation
-- Tool execution
-- Platform-specific requirements
 
 ### Troubleshooting
 
