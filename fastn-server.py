@@ -15,7 +15,6 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(
 parser = argparse.ArgumentParser(description="Run MCP server with specified API credentials and use case.")
 parser.add_argument("--api_key", required=True, help="API key for authentication.")
 parser.add_argument("--space_id", required=True, help="Space ID for the target environment.")
-parser.add_argument("--usecase", required=False, help="Description of the use case.")
 args = parser.parse_args()
 
 # Initialize FastMCP server
@@ -38,7 +37,7 @@ async def fetch_tools() -> list:
     """Fetch tool definitions from the getTools API endpoint."""
     data = {
         "input": {
-            "useCase": args.usecase,
+            # "useCase": args.usecase,
             "spaceId" : args.space_id
         }
     }
