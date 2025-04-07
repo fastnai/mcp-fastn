@@ -9,13 +9,13 @@ The Fastn server is a powerful, scalable platform that enables dynamic tool regi
 The easiest way to install the Fastn server is using pip:
 
 ```bash
-pip install fastn-server
+pip install fastn-mcp-server
 ```
 
 After installation, you can run the server with:
 
 ```bash
-fastn-server --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
+fastn-mcp-server --api_key YOUR_API_KEY --space_id YOUR_SPACE_ID
 ```
 
 When using the package installation, your configuration for AI assistants will look like:
@@ -25,7 +25,7 @@ When using the package installation, your configuration for AI assistants will l
 {
     "mcpServers": {
         "fastn": {
-            "command": "/path/to/fastn-server",
+            "command": "/path/to/fastn-mcp-server",
             "args": [
                 "--api_key",
                 "YOUR_API_KEY",
@@ -42,7 +42,7 @@ When using the package installation, your configuration for AI assistants will l
 {
     "mcpServers": {
         "fastn": {
-            "command": "C:\\path\\to\\fastn-server.exe",
+            "command": "C:\\path\\to\\fastn-mcp-server.exe",
             "args": [
                 "--api_key",
                 "YOUR_API_KEY",
