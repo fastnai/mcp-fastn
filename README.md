@@ -1,8 +1,17 @@
 # Fastn Server
+[![smithery badge](https://smithery.ai/badge/@fastnai/mcp-fastn)](https://smithery.ai/server/@fastnai/mcp-fastn)
 
 The Fastn server is a powerful, scalable platform that enables dynamic tool registration and execution based on API definitions. It seamlessly integrates with services like Claude.ai and Cursor.ai, providing a unified server solution for a wide range of tasks. With its robust architecture, Fastn delivers exceptional performance and flexibility for real-time, API-driven operations.
 
 ## Getting Started
+
+### Installing via Smithery
+
+To install Fastn Server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@fastnai/mcp-fastn):
+
+```bash
+npx -y @smithery/cli install @fastnai/mcp-fastn --client claude
+```
 
 ### Package Installation (Recommended)
 
