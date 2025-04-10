@@ -1,0 +1,27 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - apiKey
+      - spaceId
+    properties:
+      apiKey:
+        type: string
+        description: API key for Fastn authentication
+      spaceId:
+        type: string
+        description: Space ID for the target environment
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'uv',
+      args: ['run', 'fastn-server.py', '--api_key', config.apiKey, '--space_id', config.spaceId]
+    })
+  exampleConfig:
+    apiKey: example_api_key
+    spaceId: example_space_id
