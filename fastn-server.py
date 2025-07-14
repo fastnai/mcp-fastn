@@ -1,21 +1,27 @@
-from typing import Any, Dict, Tuple, Union, Optional
+from typing import Any, Dict
 import httpx
 import asyncio
 import json
 import logging
 import argparse
 import re
+import sys
 from mcp.server.fastmcp import FastMCP
-from pydantic import BaseModel, create_model, Field
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
 # Parse command-line arguments
 parser = argparse.ArgumentParser(description="Run MCP server with specified API credentials and use case.")
-parser.add_argument("--api_key", required=True, help="API key for authentication.")
+parser.add_argument("--api_key", help="API key for authentication.")
 parser.add_argument("--space_id", required=True, help="Space ID for the target environment.")
+parser.add_argument("--tenant_id", help="Tenant ID for the target environment.")
+parser.add_argument("--auth_token", help="Auth token for the target environment.")
 args = parser.parse_args()
+
+# Validate arguments
+if not args.api_key and not (args.tenant_id and args.auth_token):
+    parser.error("Either --api_key OR both --tenant_id and --auth_token must be provided")
 
 # Initialize FastMCP server
 mcp = FastMCP("fastn")
@@ -26,18 +32,31 @@ EXECUTE_TOOL_URL = "https://live.fastn.ai/api/ucl/executeTool"
 
 # Common headers
 HEADERS = {
-    "x-fastn-api-key": args.api_key,
     "Content-Type": "application/json",
     "x-fastn-space-id": args.space_id,
-    "x-fastn-space-tenantid": "",
-    "stage": "LIVE"
+    "stage": "LIVE",
+    "x-fastn-custom-auth": "true"
 }
+
+# Add authentication headers based on provided credentials
+if args.api_key:
+    # API key authentication
+    HEADERS["x-fastn-api-key"] = args.api_key
+    HEADERS["x-fastn-space-tenantid"] = ""
+else:
+    # Tenant authentication
+    auth_token = args.auth_token
+    if auth_token and not auth_token.startswith('Bearer '):
+        auth_token = "Bearer " + auth_token
+    
+    HEADERS["x-fastn-api-key"] = auth_token.replace("Bearer ", "")
+    HEADERS["x-fastn-space-tenantid"] = args.tenant_id
+    HEADERS["authorization"] = auth_token
 
 async def fetch_tools() -> list:
     """Fetch tool definitions from the getTools API endpoint."""
     data = {
         "input": {
-            # "useCase": args.usecase,
             "spaceId" : args.space_id
         }
     }
