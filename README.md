@@ -27,6 +27,24 @@ To find the exact path of the installed command:
 - On macOS/Linux: `which fastn-mcp-server`
 - On Windows: `where fastn-mcp-server`
 
+## After Package Installation
+
+```bash
+{
+  "mcpServers": {
+      "fastn": {
+          "command": "fastn-mcp-server",
+          "args": [
+              "--api_key",
+              "YOUR_API_KEY",
+              "--space_id",
+              "YOUR_WORKSPACE_ID"
+          ]
+      }
+  }
+}
+```
+
 ### Option 2: Manual Setup
 
 ```bash
@@ -230,7 +248,7 @@ uv pip install "httpx>=0.28.1" "mcp[cli]>=1.2.0"
 ## Support
 
 - Documentation: [https://docs.fastn.ai](https://docs.fastn.ai)
-- Community: [https://community.fastn.ai](https://community.fastn.ai)
+- Community: [https://discord.gg/Nvd5p8axU3](https://discord.gg/Nvd5p8axU3)
 
 ## License
 
