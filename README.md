@@ -1,6 +1,6 @@
-# Fastn Server
+# Unified Context Layer (UCL) MCP Server
 
-The Fastn server is a powerful, scalable platform that enables dynamic tool registration and execution based on API definitions. It seamlessly integrates with services like Claude.ai and Cursor.ai, providing a unified server solution for a wide range of tasks.
+Unified Context Layer (UCL) is a multi-tenant Model Context Protocol (MCP) server that enables AI agents, automation platforms, and applications to connect to over 1,000 SaaS tools—such as Slack, Jira, Gmail, Shopify, Notion, and more—via a single standardized /command endpoint. UCL abstracts away SDK sprawl, glue code, and complex authentication flows, allowing developers to orchestrate context-rich, cross-platform integrations without building and maintaining separate connectors for each service.
 
 ## Features
 
@@ -17,7 +17,7 @@ The Fastn server is a powerful, scalable platform that enables dynamic tool regi
 
 ### Option 1: Package Installation (Recommended)
 
-The easiest way to install the Fastn server is using pip:
+The easiest way to install the UCL server is using pip:
 
 ```bash
 pip install fastn-mcp-server
@@ -61,14 +61,12 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex" && uv venv && .venv\S
 uv pip install "httpx>=0.28.1" "mcp[cli]>=1.2.0"
 ```
 
-## Fastn Account Setup
+## UCL Account Setup
 
-1. Login to your Fastn account
-2. Go to "Connectors" from the left sidebar
-3. Activate the service(s) you want to use
-4. Go to "Settings" from the left sidebar
-5. Click on "Generate API Key" and save it (if using API Key auth)
-6. Copy your Workspace ID from the top bar
+1. Log in to your UCL account or sign up for a new UCL account
+3. Activate the service(s)/connector(s) you want to use
+4. Go to the "Integrate" section on the left-hand side and follow the provided instructions to connect UCL to your agents.
+5. Alternatively, you can also select and different method to use UCL as mentioned within the integrate section.
 
 ## Running the Server
 
@@ -193,11 +191,11 @@ Tenant authentication:
 ### Cursor Integration
 
 1. Open Cursor settings
-2. Click on "MCP" in the settings menu
-3. Click on "Add New"
+2. Navigate to the "Tools & Integrations" tab and click "Add Custom MCP"
+3. Click on "Add new MCP server"
 4. Add a name for your server (e.g., "fastn")
-5. Select "Command" as the type
-6. Add the command based on your installation:
+5. Head back to UCL and within the Integrate section, head over to "Real Time Event Streaming" mentioned at the bottom of the Integrate section
+6. Copy the JSON command and head back to Cursor to paste the file in mcp.json and save.
 
 #### Using Package Installation
 
@@ -247,7 +245,7 @@ uv pip install "httpx>=0.28.1" "mcp[cli]>=1.2.0"
 
 ## Support
 
-- Documentation: [https://docs.fastn.ai](https://docs.fastn.ai)
+- Documentation: https://docs.fastn.ai/ucl-unified-context-layer/about-ucl
 - Community: [https://discord.gg/Nvd5p8axU3](https://discord.gg/Nvd5p8axU3)
 
 ## License
