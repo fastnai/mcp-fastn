@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ucl-stdio-server:
+    build: .
+    container_name: ucl-stdio-server
+    environment:
+      - API_KEY=${API_KEY:-dummy_api_key}
+      - SPACE_ID=${SPACE_ID:-dummy_space_id}
+      - TENANT_ID=${TENANT_ID:-}
+      - AUTH_TOKEN=${AUTH_TOKEN:-}
+      - CONFIG_MODE=${CONFIG_MODE:-basic}
+    volumes:
+      - .:/app
+    restart: unless-stopped

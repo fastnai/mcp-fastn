@@ -197,29 +197,91 @@ Tenant authentication:
 5. Head back to UCL and within the Integrate section, head over to "Real Time Event Streaming" mentioned at the bottom of the Integrate section
 6. Copy the JSON command and head back to Cursor to paste the file in mcp.json and save.
 
-#### Using Package Installation
+## Docker Integration
 
-API Key authentication:
-```
-/path/to/fastn-mcp-server --api_key YOUR_API_KEY --space_id YOUR_WORKSPACE_ID
+### Step 1: Setup Environment Configuration
+
+Create a `.env` file in your project directory with your UCL credentials:
+
+```bash
+# Configuration Format 1: Basic API Key and Space ID
+API_KEY=your_actual_api_key
+SPACE_ID=your_actual_space_id
+
+# Configuration Format 2: Extended with Tenant ID and Auth Token
+TENANT_ID=your_tenant_id
+AUTH_TOKEN=your_actual_auth_token
+
+# Set configuration mode: "basic" or "extended"
+CONFIG_MODE=extended
 ```
 
-Tenant authentication:
-```
-/path/to/fastn-mcp-server --space_id YOUR_WORKSPACE_ID --tenant_id YOUR_TENANT_ID --auth_token YOUR_AUTH_TOKEN
+### Step 2: Build and Run with Docker Compose
+
+First, build and start the container:
+
+```bash
+docker-compose up --build
 ```
 
-#### Using Manual Installation
+This will create the UCL server image and verify it starts correctly.
 
-API Key authentication:
-```
-/path/to/your/uv --directory /path/to/your/fastn-server run fastn-server.py --api_key YOUR_API_KEY --space_id YOUR_WORKSPACE_ID
+### Step 3: Configure AI Assistants for Docker Integration
+
+#### Claude Desktop Integration
+
+1. Open the Claude configuration file:
+   - Windows: `notepad "%APPDATA%\Claude\claude_desktop_config.json"`
+   - Mac: `code ~/Library/Application\ Support/Claude/claude_desktop_config.json`
+
+2. Add the Docker configuration:
+
+```json
+{
+  "mcpServers": {
+    "ucl": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "--env-file", "/path/to/your/fastn-stdio-server/.env",
+        "ucl-stdio-server"
+      ]
+    }
+  }
+}
 ```
 
-Tenant authentication:
+**Note:** Replace `/path/to/your/fastn-stdio-server/.env` with the actual path to your `.env` file.
+
+#### Alternative: Using Environment Variables
+
+If you prefer to pass environment variables directly:
+
+```json
+{
+  "mcpServers": {
+    "ucl": {
+      "command": "docker",
+      "args": [
+        "run", "-i", "--rm",
+        "-e", "API_KEY=your_actual_api_key",
+        "-e", "SPACE_ID=your_actual_space_id", 
+        "-e", "TENANT_ID=your_tenant_id",
+        "-e", "AUTH_TOKEN=your_actual_auth_token",
+        "-e", "CONFIG_MODE=extended",
+        "ucl-stdio-server"
+      ]
+    }
+  }
+}
 ```
-/path/to/your/uv --directory /path/to/your/fastn-server run fastn-server.py --space_id YOUR_WORKSPACE_ID --tenant_id YOUR_TENANT_ID --auth_token YOUR_AUTH_TOKEN
-```
+
+### Benefits of Docker Integration
+
+- **Isolation**: UCL server runs in a secure container environment
+- **Consistency**: Same runtime across different machines and platforms
+- **Easy Setup**: No need to install Python dependencies locally
+- **Scalability**: Can be deployed in cloud environments or orchestrated with Kubernetes
 
 ## Troubleshooting
 
